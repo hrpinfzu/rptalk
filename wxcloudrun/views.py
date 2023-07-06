@@ -4,6 +4,7 @@ from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
+import json
 
 
 @app.route('/')
@@ -13,6 +14,17 @@ def index():
     """
     return render_template('index.html')
 
+@app.route('/api/message', methods=['POST'])
+def message():
+    """
+    :return: 消息自动回复
+    """
+
+    # 获取请求体参数
+    params = request.get_json()
+
+    return make_succ_response(params)
+        
 
 @app.route('/api/count', methods=['POST'])
 def count():
